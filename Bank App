@@ -1,0 +1,78 @@
+# Bank application
+
+data = {}  # empty dictionary
+
+
+def newAccount():
+    print("--------CREATE A NEW ACCOUNT HERE--------")
+    acc_num = int(input("Enter your account number:"))  # key
+
+    list1 = ["Name", "Age", "Address", "Phone", "Amount"]
+    list2 = []
+
+    n = input("Enter your name:")
+    list2.append(n)
+    age = input("Enter your age:")
+    list2.append(age)
+    add = input("Enter your address:")
+    list2.append(add)
+    phone = input("Enter Your phone number")
+    list2.append(phone)
+    amt = int(input("Enter amount"))
+    list2.append(amt)
+
+    # Store data into dictionary
+
+    data[acc_num] = dict(zip(list1, list2))  # typecasting converting list type to dict
+    print("---------NEW ACCOUNT CREATED-----------")
+    print("-" * 40)
+
+
+def exsistingCustomer():
+    print("-------------For Existing Customer------ ")
+    acc = int(input("Enter your account number to find details: "))
+    if acc in data:
+        print("----------------------DATA FOUND--------------------")
+        while True:
+            print("1. Check Balance\n2. Withdraw\n3.Deposit\n4. Main Menu")
+            ch = int(input("Enter your choice:"))
+            if ch == 1:
+                print("Avialable balance :", data[acc]["Amount"])
+                print("-" * 30)
+            elif ch == 2:
+                amt = int(input("Enter amount to withdraw: "))
+                if amt > data[acc]["Amount"]:
+                    print("Not Enough Available Balance!!")
+                else:
+                    final_amt = data[acc]["Amount"] - amt
+                    print("Withdraw Sccussfull!!! Avaiable balance is: ", final_amt)
+                    data[acc]["Amount"] = final_amt  # update new value
+                    print("-" * 30)
+            elif ch == 3:
+                amt = int(input("Enter amount to Deposit: "))
+                final_amt = data[acc]["Amount"] + amt
+                print("Deposit Sccussfull!!! Avaiable balance is: ", final_amt)
+            elif ch == 4:
+                break
+
+    else:
+        print("---------------DATA NOT FOUND----------------")
+
+
+while True:
+    print("---------------MAIN MENU--------------")
+    print("1. Open a new account\n2. Exsisting customer\n3. Exit")
+    ch = int(input("Enter your chocice:"))
+
+    if ch == 1:
+        newAccount()  # function call
+
+    elif ch == 2:
+        exsistingCustomer()  # function call
+
+    elif ch == 3:
+        print("-------BYE---------")
+        print("-----BYE-----")
+        break
+    else:
+        print("--------------INVALID CHOICE-------------")
